@@ -1,0 +1,35 @@
+{
+  "name": "apimtpl",
+  "version": "0.0.1",
+  "author": "Pascal",
+  "license": "MIT",
+  "main": "./lib/apimtpl.js",
+  "bin": {
+    "apimtpl": "./bin/apimtpl-cli.js"
+  },
+  "dependencies": {
+    "argparse": "^1.0.7",
+    "fs-extra": "^8.1.0",
+    "js-yaml": "^3.13.1",
+    "pkginfo": "^0.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2017,
+      "sourceType": "module"
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "no-console": "off"
+    }
+  }
+}

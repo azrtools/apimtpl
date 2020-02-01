@@ -1,0 +1,27 @@
+apis:
+  - name: api-1
+    displayName: API 1
+    policies:
+      inbound: |
+        <base />
+        <set-backend-service base-url="$[backend-server]" />
+        <authentication-basic username="$[username]" password="$[password]" />
+    properties:
+      - name: username
+        value: user001
+      - name: password
+        value: password123
+        secret: true
+    operations:
+      - name: op1
+        method: POST
+---
+apis:
+  - name: api-2
+    policies:
+      inbound: |
+        <base />
+        <set-backend-service base-url="$[backend-server]" />
+    operations:
+      - name: op1
+        method: GET
