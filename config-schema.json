@@ -20,7 +20,7 @@
     "api": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "path", "operations"],
+      "required": ["name"],
       "properties": {
         "name": {
           "$ref": "#/definitions/name"
@@ -132,6 +132,27 @@
         },
         "displayName": {
           "$ref": "#/definitions/displayName"
+        },
+        "apis": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/api"
+          }
+        },
+        "products": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/product"
+          }
+        },
+        "subscriptions": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/subscription"
+          }
         }
       }
     },
@@ -158,7 +179,7 @@
     "subscription": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "scope"],
+      "required": ["name"],
       "properties": {
         "name": {
           "$ref": "#/definitions/name"
@@ -194,7 +215,8 @@
       "type": "array",
       "default": [],
       "items": {
-        "$ref": "#/definitions/api"
+        "allOf": [{ "$ref": "#/definitions/api" }],
+        "required": ["name", "path", "operations"]
       }
     },
     "products": {
@@ -208,7 +230,8 @@
       "type": "array",
       "default": [],
       "items": {
-        "$ref": "#/definitions/subscription"
+        "allOf": [{ "$ref": "#/definitions/subscription" }],
+        "required": ["name", "scope"]
       }
     }
   }
