@@ -8,6 +8,7 @@
     "apimtpl": "./bin/apimtpl-cli.js"
   },
   "dependencies": {
+    "ajv": "6.11.0",
     "argparse": "^1.0.7",
     "fs-extra": "^8.1.0",
     "js-yaml": "^3.13.1",

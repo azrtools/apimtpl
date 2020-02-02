@@ -1,6 +1,7 @@
 apis:
   - name: api-1
     displayName: API 1
+    path: api1
     policies:
       inbound: |
         <base />
@@ -15,9 +16,11 @@ apis:
     operations:
       - name: op1
         method: POST
+        path: /op1
 ---
 apis:
   - name: api-2
+    path: api2
     policies:
       inbound: |
         <base />
@@ -25,3 +28,4 @@ apis:
     operations:
       - name: op1
         method: GET
+        path: /op1

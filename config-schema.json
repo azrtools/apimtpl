@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "name": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]$"
+    },
+    "displayName": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9 _-]*[A-Za-z0-9]$"
+    },
+    "absolutePath": {
+      "type": "string",
+      "pattern": "^/[A-Za-z0-9/_-]+$"
+    },
+    "relativePath": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9/_-]*[A-Za-z0-9]$"
+    },
+    "api": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "path", "operations"],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "displayName": {
+          "$ref": "#/definitions/displayName"
+        },
+        "path": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "policies": {
+          "$ref": "#/definitions/policies",
+          "default": {}
+        },
+        "properties": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/property"
+          }
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/operation"
+          }
+        }
+      }
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "inbound": {
+          "type": "string"
+        },
+        "backend": {
+          "type": "string"
+        },
+        "outbound": {
+          "type": "string"
+        },
+        "on-error": {
+          "type": "string"
+        }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "method", "path"],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "displayName": {
+          "$ref": "#/definitions/displayName"
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "HEAD",
+            "POST",
+            "PUT",
+            "DELETE",
+            "CONNECT",
+            "OPTIONS",
+            "TRACE",
+            "PATCH"
+          ]
+        },
+        "path": {
+          "$ref": "#/definitions/absolutePath"
+        }
+      }
+    },
+    "property": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "value"],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "displayName": {
+          "$ref": "#/definitions/displayName"
+        },
+        "value": {
+          "type": "string"
+        },
+        "secret": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apis"],
+  "properties": {
+    "apis": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/api"
+      }
+    },
+    "properties": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/property"
+      }
+    }
+  }
+}
