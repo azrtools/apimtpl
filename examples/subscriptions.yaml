@@ -1,0 +1,4 @@
+subscriptions:
+  - name: subscription1
+    scope:
+      product: product1

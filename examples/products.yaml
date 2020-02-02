@@ -1,0 +1,5 @@
+products:
+  - name: product1
+    apis:
+      - api-1
+      - api-2

@@ -1,7 +1,7 @@
 apis:
   - name: api-1
     displayName: API 1
-    path: api1
+    path: api1/${environment.name}
     policies:
       inbound: |
         <base />
@@ -17,6 +17,10 @@ apis:
       - name: op1
         method: POST
         path: /op1
+        policies:
+          inbound: |
+            <base />
+            <rewrite-uri template="/backend-api/" />
 ---
 apis:
   - name: api-2

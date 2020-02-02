@@ -9,17 +9,18 @@
       "type": "string",
       "pattern": "^[A-Za-z0-9][A-Za-z0-9 _-]*[A-Za-z0-9]$"
     },
-    "absolutePath": {
+    "ref": {
       "type": "string",
-      "pattern": "^/[A-Za-z0-9/_-]+$"
+      "pattern": "^(\\$\\{[a-zA-Z0-9.]+\\}|[A-Za-z0-9_-]+)+$"
     },
-    "relativePath": {
+    "path": {
       "type": "string",
-      "pattern": "^[A-Za-z0-9][A-Za-z0-9/_-]*[A-Za-z0-9]$"
+      "pattern": "^(\\$\\{[a-zA-Z0-9.]+\\}|[A-Za-z0-9./_-]+)+$"
     },
     "api": {
       "type": "object",
       "additionalProperties": false,
+      "required": ["name", "path", "operations"],
       "properties": {
         "name": {
           "$ref": "#/definitions/name"
@@ -28,7 +29,7 @@
           "$ref": "#/definitions/displayName"
         },
         "path": {
-          "$ref": "#/definitions/relativePath"
+          "$ref": "#/definitions/path"
         },
         "policies": {
           "$ref": "#/definitions/policies",
@@ -93,7 +94,11 @@
           ]
         },
         "path": {
-          "$ref": "#/definitions/absolutePath"
+          "$ref": "#/definitions/path"
+        },
+        "policies": {
+          "$ref": "#/definitions/policies",
+          "default": {}
         }
       }
     },
@@ -127,13 +132,48 @@
         },
         "displayName": {
           "$ref": "#/definitions/displayName"
+        }
+      }
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "displayName": {
+          "$ref": "#/definitions/displayName"
         },
         "apis": {
           "type": "array",
           "default": [],
           "items": {
-            "allOf": [{ "$ref": "#/definitions/api" }],
-            "required": ["name"]
+            "$ref": "#/definitions/name"
+          }
+        }
+      }
+    },
+    "subscription": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "scope"],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "displayName": {
+          "$ref": "#/definitions/displayName"
+        },
+        "scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["product"],
+          "properties": {
+            "product": {
+              "$ref": "#/definitions/ref"
+            }
           }
         }
       }
@@ -152,10 +192,23 @@
     },
     "apis": {
       "type": "array",
-      "minItems": 1,
+      "default": [],
       "items": {
-        "allOf": [{ "$ref": "#/definitions/api" }],
-        "required": ["name", "path", "operations"]
+        "$ref": "#/definitions/api"
+      }
+    },
+    "products": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/product"
+      }
+    },
+    "subscriptions": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/subscription"
       }
     }
   }
