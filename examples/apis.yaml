@@ -5,7 +5,7 @@ apis:
     policies:
       inbound: |
         <base />
-        <set-backend-service base-url="$[backend-server]" />
+        <set-backend-service base-url="https://example.com" />
         <authentication-basic username="$[username]" password="$[password]" />
     properties:
       - name: username
@@ -24,7 +24,7 @@ apis:
     policies:
       inbound: |
         <base />
-        <set-backend-service base-url="$[backend-server]" />
+        <set-backend-service base-url="https://example.com" />
     operations:
       - name: op1
         method: GET
