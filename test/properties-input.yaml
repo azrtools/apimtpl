@@ -1,0 +1,20 @@
+environments:
+  - name: development
+apis:
+  - name: example-api
+    path: example-api
+    policies:
+      inbound: |
+        <base />
+        <set-backend-service base-url="https://example.com" />
+        <authentication-basic username="$[username]" password="$[password]" />
+    properties:
+      - name: username
+        value: user001
+      - name: password
+        value: password123
+        secret: true
+    operations:
+      - name: get-data
+        method: GET
+        path: /data

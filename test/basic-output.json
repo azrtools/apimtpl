@@ -1,0 +1,106 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "serviceName": {
+      "type": "string",
+      "defaultValue": ""
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.ApiManagement/service/apis",
+      "name": "[concat(parameters('serviceName'), '/example-api-development')]",
+      "properties": {
+        "displayName": "Example-Api - Development",
+        "apiRevision": "1",
+        "subscriptionRequired": true,
+        "path": "example-api",
+        "protocols": [
+          "https"
+        ],
+        "isCurrent": true
+      },
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "name": "[concat(parameters('serviceName'), '/example-api-development/ping')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'example-api-development')]"
+      ],
+      "properties": {
+        "displayName": "Ping",
+        "method": "POST",
+        "urlTemplate": "/ping",
+        "templateParameters": [],
+        "responses": []
+      },
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+      "name": "[concat(parameters('serviceName'), '/example-api-development/ping/policy')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('serviceName'), 'example-api-development', 'ping')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'example-api-development')]"
+      ],
+      "properties": {
+        "value": "<policies><inbound><base /></inbound><backend><base /></backend><outbound><base /></outbound><on-error><base /></on-error></policies>",
+        "format": "xml"
+      },
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "name": "[concat(parameters('serviceName'), '/example-api-development/policy')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'example-api-development')]"
+      ],
+      "properties": {
+        "value": "<policies><inbound><base /></inbound><backend><base /></backend><outbound><base /></outbound><on-error><base /></on-error></policies>",
+        "format": "xml"
+      },
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/products",
+      "name": "[concat(parameters('serviceName'), '/example-development')]",
+      "properties": {
+        "displayName": "Example - Development",
+        "description": "Example - Development",
+        "subscriptionRequired": true,
+        "approvalRequired": false,
+        "state": "published"
+      },
+      "resources": [
+        {
+          "type": "apis",
+          "name": "example-api-development",
+          "dependsOn": [
+            "example-development",
+            "[resourceId('Microsoft.ApiManagement/service/apis', parameters('serviceName'), 'example-api-development')]"
+          ],
+          "properties": {},
+          "apiVersion": "2019-01-01"
+        }
+      ],
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/subscriptions",
+      "name": "[concat(parameters('serviceName'), '/example-development')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/products', parameters('serviceName'), 'example-development')]"
+      ],
+      "properties": {
+        "scope": "[resourceId('Microsoft.ApiManagement/service/products', parameters('serviceName'), 'example-development')]",
+        "displayName": "Example - Development",
+        "state": "active",
+        "allowTracing": true
+      },
+      "apiVersion": "2019-01-01"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+environments:
+  - name: development
+apis:
+  - name: example-api
+    path: example-api
+    operations:
+      - name: ping
+        method: POST
+        path: /ping
+---
+products:
+  - name: example
+    apis:
+      - example-api
+subscriptions:
+  - name: example
+    scope:
+      product: example
