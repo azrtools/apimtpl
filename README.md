@@ -25,6 +25,8 @@ The output will be written to `/home/user/api/output.json`
 The most basic input file looks like this:
 
 ```yaml
+configuration:
+  serviceName: apim-service
 environments:
   - name: development
 apis:

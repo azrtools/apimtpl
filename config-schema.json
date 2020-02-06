@@ -17,6 +17,16 @@
       "type": "string",
       "pattern": "^(\\$\\{[a-zA-Z0-9.]+\\}|[A-Za-z0-9./_-]+)+$"
     },
+    "configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["serviceName"],
+      "properties": {
+        "serviceName": {
+          "$ref": "#/definitions/name"
+        }
+      }
+    },
     "api": {
       "type": "object",
       "additionalProperties": false,
@@ -133,6 +143,9 @@
         "displayName": {
           "$ref": "#/definitions/displayName"
         },
+        "configuration": {
+          "$ref": "#/definitions/configuration"
+        },
         "apis": {
           "type": "array",
           "default": [],
@@ -202,8 +215,11 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["environments", "apis"],
+  "required": ["configuration", "environments", "apis"],
   "properties": {
+    "configuration": {
+      "$ref": "#/definitions/configuration"
+    },
     "environments": {
       "type": "array",
       "minItems": 1,

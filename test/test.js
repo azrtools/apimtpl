@@ -1,4 +1,4 @@
-const { readdirSync, readFile } = require("fs-extra");
+const { readdirSync, readJson } = require("fs-extra");
 const { describe, it } = require("mocha");
 const { expect } = require("chai");
 
@@ -14,8 +14,8 @@ describe("apimtpl", () => {
       it(`should generate the expected output (${base})`, async () => {
         const result = await generate([`test/${file}`]);
         const output = JSON.stringify(result, null, 2);
-        const expected = await readFile(`test/${base}-output.json`, "utf8");
-        return expect(output).equals(expected.trimRight());
+        const expected = await readJson(`test/${base}-output.json`);
+        return expect(output).equals(JSON.stringify(expected, null, 2));
       });
     }
   }

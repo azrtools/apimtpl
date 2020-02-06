@@ -1,3 +1,5 @@
+configuration:
+  serviceName: apim1
 environments:
   - name: development
 apis:
