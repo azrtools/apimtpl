@@ -1,6 +1,6 @@
 {
   "name": "apimtpl",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Pascal",
   "license": "MIT",
   "main": "./lib/apimtpl.js",
