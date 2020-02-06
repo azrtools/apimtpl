@@ -15,6 +15,18 @@
         "protocols": ["https"],
         "isCurrent": true
       },
+      "resources": [
+        {
+          "type": "policies",
+          "name": "policy",
+          "dependsOn": ["example-api-development"],
+          "properties": {
+            "value": "<policies><inbound><base />\n<set-backend-service base-url=\"https://example.com\" />\n<authentication-basic username=\"{{ExampleApi-Development-Default-Username}}\" password=\"{{ExampleApi-Development-Default-Password}}\" />\n</inbound><backend><base /></backend><outbound><base /></outbound><on-error><base /></on-error></policies>",
+            "format": "xml"
+          },
+          "apiVersion": "2019-01-01"
+        }
+      ],
       "apiVersion": "2019-01-01"
     },
     {
@@ -50,18 +62,7 @@
         "templateParameters": [],
         "responses": []
       },
-      "apiVersion": "2019-01-01"
-    },
-    {
-      "type": "Microsoft.ApiManagement/service/apis/policies",
-      "name": "apim1/example-api-development/policy",
-      "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]"
-      ],
-      "properties": {
-        "value": "<policies><inbound><base />\n<set-backend-service base-url=\"https://example.com\" />\n<authentication-basic username=\"{{ExampleApi-Development-Default-Username}}\" password=\"{{ExampleApi-Development-Default-Password}}\" />\n</inbound><backend><base /></backend><outbound><base /></outbound><on-error><base /></on-error></policies>",
-        "format": "xml"
-      },
+      "resources": [],
       "apiVersion": "2019-01-01"
     }
   ]

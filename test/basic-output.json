@@ -15,6 +15,7 @@
         "protocols": ["https"],
         "isCurrent": true
       },
+      "resources": [],
       "apiVersion": "2019-01-01"
     },
     {
@@ -30,6 +31,7 @@
         "templateParameters": [],
         "responses": []
       },
+      "resources": [],
       "apiVersion": "2019-01-01"
     },
     {
@@ -47,8 +49,8 @@
           "type": "apis",
           "name": "example-api-development",
           "dependsOn": [
-            "example-development",
-            "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]"
+            "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]",
+            "example-development"
           ],
           "apiVersion": "2019-01-01",
           "properties": {}
