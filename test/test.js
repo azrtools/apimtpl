@@ -13,7 +13,10 @@ describe("apimtpl", () => {
       const base = file.substr(0, file.length - SUFFIX.length);
       it(`should generate the expected output (${base})`, async () => {
         const result = await generate([`test/${file}`]);
-        const output = JSON.stringify(result, null, 2);
+        const output =
+          Object.keys(result).length === 1
+            ? JSON.stringify(Object.entries(result)[0][1], null, 2)
+            : JSON.stringify(result, null, 2);
         const expected = await readJson(`test/${base}-output.json`);
         return expect(output).equals(JSON.stringify(expected, null, 2));
       });

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const { ArgumentParser } = require("argparse");
+const { writeJson } = require("fs-extra");
 
 require("pkginfo")(module);
 
@@ -13,6 +14,20 @@ async function main() {
     addHelp: true,
     description: module.exports.description
   });
+
+  parser.addArgument(["-f", "--force"], {
+    action: "storeTrue",
+    help: "Overwrite existing output files."
+  });
+  parser.addArgument(["--filenames"], {
+    action: "storeTrue",
+    help: "Print filenames when writing to stdout."
+  });
+  parser.addArgument(["-o"], {
+    metavar: "<output>",
+    defaultValue: "-",
+    help: "Output directory where to write files."
+  });
   parser.addArgument(["file"], {
     nargs: "+",
     metavar: "<file>",
@@ -21,8 +36,22 @@ async function main() {
 
   const args = parser.parseArgs();
 
-  const result = await generate(args.file);
-  console.log(JSON.stringify(result, null, "  "));
+  const output = await generate(args.file);
+
+  if (args.o === "-") {
+    if (args.filenames) {
+      console.log(JSON.stringify(output, null, "  "));
+    } else {
+      for (const obj of Object.values(output)) {
+        console.log(JSON.stringify(obj, null, "  "));
+      }
+    }
+  } else {
+    const options = { spaces: 2, flag: args.force ? "w" : "wx" };
+    for (const [name, obj] of Object.entries(output)) {
+      await writeJson(`${args.o}/${name}`, obj, options);
+    }
+  }
 }
 
 if (require.main === module) {
