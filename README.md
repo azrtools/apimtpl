@@ -117,6 +117,39 @@ environments:
             <set-backend-service base-url="https://development.example.com" />
 ```
 
+### Parameters
+
+To reference parameters in your configuration, use the `parameter` key.
+Parameter value can be set using the top-level `parameters` key.
+
+```yaml
+parameters:
+  - name: usernameParameter
+    value: user001
+  - name: passwordParameter
+    value: password123
+---
+configuration:
+  serviceName: apim1
+environments:
+  - name: development
+apis:
+  - name: example-api
+    path: ${name}
+    properties:
+      - name: username
+        value:
+          parameter: usernameParameter
+      - name: password
+        value:
+          parameter: passwordParameter
+        secret: true
+    operations:
+      - name: get-data
+        method: GET
+        path: /data
+```
+
 ## Related projects
 
 - https://github.com/Azure/azure-api-management-devops-resource-kit
