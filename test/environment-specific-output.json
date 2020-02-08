@@ -11,7 +11,7 @@
         "displayName": "Example-Api - Development",
         "apiRevision": "1",
         "subscriptionRequired": true,
-        "path": "example-api",
+        "path": "development/example-api",
         "protocols": ["https"],
         "isCurrent": true
       },

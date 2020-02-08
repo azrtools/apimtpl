@@ -3,6 +3,7 @@
   "version": "0.0.3",
   "author": "Pascal",
   "license": "MIT",
+  "private": true,
   "main": "./lib/apimtpl.js",
   "bin": {
     "apimtpl": "./bin/apimtpl-cli.js"

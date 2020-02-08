@@ -2,9 +2,12 @@ configuration:
   serviceName: apim1
 environments:
   - name: development
+variables:
+  - name: prefix
+    value: ""
 apis:
   - name: example-api
-    path: example-api
+    path: ${prefix}example-api
     policies:
       inbound: |
         <base />
@@ -16,6 +19,9 @@ apis:
 ---
 environments:
   - name: development
+    variables:
+      - name: prefix
+        value: development/
     apis:
       - name: example-api
         policies:

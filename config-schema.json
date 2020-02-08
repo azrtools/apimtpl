@@ -132,6 +132,19 @@
         }
       }
     },
+    "variable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "value"],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
     "environment": {
       "type": "object",
       "additionalProperties": false,
@@ -145,6 +158,13 @@
         },
         "configuration": {
           "$ref": "#/definitions/configuration"
+        },
+        "variables": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/variable"
+          }
         },
         "apis": {
           "type": "array",
@@ -225,6 +245,13 @@
       "minItems": 1,
       "items": {
         "$ref": "#/definitions/environment"
+      }
+    },
+    "variables": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/variable"
       }
     },
     "apis": {
