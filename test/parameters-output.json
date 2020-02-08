@@ -1,0 +1,73 @@
+{
+  "azuredeploy.json": {
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "passwordParameter": {
+        "type": "securestring"
+      }
+    },
+    "variables": {},
+    "resources": [
+      {
+        "type": "Microsoft.ApiManagement/service/apis",
+        "name": "apim1/example-api-development",
+        "properties": {
+          "displayName": "Example-Api - Development",
+          "apiRevision": "1",
+          "subscriptionRequired": true,
+          "path": "example-api",
+          "protocols": ["https"],
+          "isCurrent": true
+        },
+        "resources": [],
+        "apiVersion": "2019-01-01"
+      },
+      {
+        "type": "Microsoft.ApiManagement/service/properties",
+        "name": "apim1/example-api-development-default-username",
+        "properties": {
+          "displayName": "ExampleApi-Development-Default-Username",
+          "value": "user001",
+          "secret": false
+        },
+        "apiVersion": "2019-01-01"
+      },
+      {
+        "type": "Microsoft.ApiManagement/service/properties",
+        "name": "apim1/example-api-development-default-password",
+        "properties": {
+          "displayName": "ExampleApi-Development-Default-Password",
+          "value": "[parameters('passwordParameter')]",
+          "secret": true
+        },
+        "apiVersion": "2019-01-01"
+      },
+      {
+        "type": "Microsoft.ApiManagement/service/apis/operations",
+        "name": "apim1/example-api-development/get-data",
+        "dependsOn": [
+          "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]"
+        ],
+        "properties": {
+          "displayName": "Get-Data",
+          "method": "GET",
+          "urlTemplate": "/data",
+          "templateParameters": [],
+          "responses": []
+        },
+        "resources": [],
+        "apiVersion": "2019-01-01"
+      }
+    ]
+  },
+  "parameters.json": {
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "passwordParameter": {
+        "value": "password123"
+      }
+    }
+  }
+}

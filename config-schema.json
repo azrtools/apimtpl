@@ -17,6 +17,19 @@
       "type": "string",
       "pattern": "^(\\$\\{[a-zA-Z0-9.]+\\}|[A-Za-z0-9./_-]+)+$"
     },
+    "value": {
+      "oneOf": [{ "type": "string" }, { "$ref": "#/definitions/parameterRef" }]
+    },
+    "parameterRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["parameter"],
+      "properties": {
+        "parameter": {
+          "$ref": "#/definitions/name"
+        }
+      }
+    },
     "configuration": {
       "type": "object",
       "additionalProperties": false,
@@ -124,11 +137,24 @@
           "$ref": "#/definitions/displayName"
         },
         "value": {
-          "type": "string"
+          "$ref": "#/definitions/value"
         },
         "secret": {
           "type": "boolean",
           "default": false
+        }
+      }
+    },
+    "parameter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "value"],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "type": "string"
         }
       }
     },
@@ -235,14 +261,20 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["configuration", "environments", "apis"],
   "properties": {
     "configuration": {
       "$ref": "#/definitions/configuration"
     },
+    "parameters": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/parameter"
+      }
+    },
     "environments": {
       "type": "array",
-      "minItems": 1,
+      "default": [],
       "items": {
         "$ref": "#/definitions/environment"
       }

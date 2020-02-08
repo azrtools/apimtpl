@@ -1,0 +1,21 @@
+configuration:
+  serviceName: apim1
+parameters:
+  - name: passwordParameter
+    value: password123
+environments:
+  - name: development
+apis:
+  - name: example-api
+    path: ${name}
+    properties:
+      - name: username
+        value: user001
+      - name: password
+        value:
+          parameter: passwordParameter
+        secret: true
+    operations:
+      - name: get-data
+        method: GET
+        path: /data
