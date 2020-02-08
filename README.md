@@ -120,7 +120,7 @@ environments:
 ### Parameters
 
 To reference parameters in your configuration, use the `parameter` key.
-Parameter value can be set using the top-level `parameters` key.
+Parameter values can be set using the top-level `parameters` key.
 
 ```yaml
 parameters:
