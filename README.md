@@ -78,8 +78,6 @@ apis:
       - name: username
         value: user001
       - name: password
-        value: password123
-        secret: true
     operations:
       - name: get-data
         method: GET

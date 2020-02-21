@@ -163,7 +163,7 @@
     "property": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "value"],
+      "required": ["name"],
       "properties": {
         "name": {
           "$ref": "#/definitions/name"
