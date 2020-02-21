@@ -122,6 +122,41 @@
         "policies": {
           "$ref": "#/definitions/policies",
           "default": {}
+        },
+        "queryParameters": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "$ref": "#/definitions/name"
+              },
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "default": ""
+              },
+              "required": {
+                "type": "boolean",
+                "default": false
+              },
+              "defaultValue": {
+                "type": "string"
+              },
+              "values": {
+                "type": "array",
+                "default": [],
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
         }
       }
     },

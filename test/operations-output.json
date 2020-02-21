@@ -11,22 +11,11 @@
         "displayName": "Example-Api - Development",
         "apiRevision": "1",
         "subscriptionRequired": true,
-        "path": "development/example-api",
+        "path": "example-api",
         "protocols": ["https"],
         "isCurrent": true
       },
-      "resources": [
-        {
-          "type": "policies",
-          "name": "policy",
-          "dependsOn": ["example-api-development"],
-          "properties": {
-            "value": "<policies><inbound><base />\n<set-backend-service base-url=\"https://development.example.com\" />\n</inbound><backend><base /></backend><outbound><base /></outbound><on-error><base /></on-error></policies>",
-            "format": "xml"
-          },
-          "apiVersion": "2019-01-01"
-        }
-      ],
+      "resources": [],
       "apiVersion": "2019-01-01"
     },
     {
@@ -41,7 +30,16 @@
         "urlTemplate": "/data",
         "templateParameters": [],
         "request": {
-          "queryParameters": []
+          "queryParameters": [
+            {
+              "name": "param1",
+              "description": "Param 1",
+              "defaultValue": "B",
+              "values": ["A", "B", "C"],
+              "type": "",
+              "required": false
+            }
+          ]
         },
         "responses": []
       },

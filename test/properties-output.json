@@ -60,6 +60,9 @@
         "method": "GET",
         "urlTemplate": "/data",
         "templateParameters": [],
+        "request": {
+          "queryParameters": []
+        },
         "responses": []
       },
       "resources": [],

@@ -1,0 +1,16 @@
+configuration:
+  serviceName: apim1
+environments:
+  - name: development
+apis:
+  - name: example-api
+    path: ${name}
+    operations:
+      - name: get-data
+        method: GET
+        path: /data
+        queryParameters:
+          - name: param1
+            description: Param 1
+            defaultValue: B
+            values: [A, B, C]

@@ -29,6 +29,9 @@
         "method": "POST",
         "urlTemplate": "/ping",
         "templateParameters": [],
+        "request": {
+          "queryParameters": []
+        },
         "responses": []
       },
       "resources": [],
