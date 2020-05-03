@@ -1,0 +1,26 @@
+configuration:
+  serviceName: apim1
+variables:
+  - name: backend
+    value: example.com
+environments:
+  - name: development
+    variables:
+      - name: backend
+        value: dev.example.com
+  - name: quality
+apis:
+  - name: example-api
+    path: ${name}
+    policies:
+      inbound: |
+        <base />
+        <set-backend-service base-url="https://${backend}" />
+        <authentication-basic username="$[username]" password="$[password]" />
+    properties:
+      - name: username
+      - name: password
+    operations:
+      - name: get-data
+        method: GET
+        path: /data

@@ -84,6 +84,9 @@ apis:
         path: /data
 ```
 
+If the `value` is omitted, the property can be referenced as usual in the
+configuration files, but the property itself will not be generated.
+
 ### Environment-specific configuration
 
 The top-level `apis` key specifies API configuration that applies to all
@@ -142,6 +145,40 @@ apis:
         value:
           parameter: passwordParameter
         secret: true
+    operations:
+      - name: get-data
+        method: GET
+        path: /data
+```
+
+### Variables
+
+Variables can be used for dynamic values, they will be replaced during
+template generation.
+
+The variables `name`, `environment.name` and `api.name` are built-in variables.
+They will be resolved to the name of the current object, the environment name
+and the current API name, respectively.
+
+```yaml
+configuration:
+  serviceName: apim1
+environments:
+  - name: development
+    variables:
+      - name: backend-server
+        value: dev.example.com
+  - name: staging
+    variables:
+      - name: backend-server
+        value: staging.example.com
+apis:
+  - name: example-api
+    path: ${name}
+    policies:
+      inbound: |
+        <base />
+        <set-backend-service base-url="https://${backend-server}" />
     operations:
       - name: get-data
         method: GET
