@@ -67,7 +67,7 @@
         },
         "operations": {
           "type": "array",
-          "minItems": 1,
+          "default": [],
           "items": {
             "$ref": "#/definitions/operation"
           }
@@ -95,7 +95,7 @@
     "operation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "method", "path"],
+      "required": ["name"],
       "properties": {
         "name": {
           "$ref": "#/definitions/name"
@@ -325,8 +325,7 @@
       "type": "array",
       "default": [],
       "items": {
-        "allOf": [{ "$ref": "#/definitions/api" }],
-        "required": ["name", "path", "operations"]
+        "$ref": "#/definitions/api"
       }
     },
     "products": {
