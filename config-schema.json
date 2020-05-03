@@ -30,6 +30,64 @@
         }
       }
     },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "api": {
+          "$ref": "#/definitions/validationApi",
+          "default": {}
+        },
+        "environment": {
+          "$ref": "#/definitions/validationBase",
+          "default": {}
+        },
+        "operation": {
+          "$ref": "#/definitions/validationApi",
+          "default": {}
+        },
+        "product": {
+          "$ref": "#/definitions/validationBase",
+          "default": {}
+        },
+        "subscription": {
+          "$ref": "#/definitions/validationBase",
+          "default": {}
+        }
+      }
+    },
+    "validationBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "default": ".*"
+        },
+        "displayName": {
+          "type": "string",
+          "default": ".*"
+        }
+      }
+    },
+    "validationApi": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "default": ".*"
+        },
+        "displayName": {
+          "type": "string",
+          "default": ".*"
+        },
+        "path": {
+          "type": "string",
+          "default": ".*"
+        }
+      }
+    },
     "configuration": {
       "type": "object",
       "additionalProperties": false,
@@ -297,6 +355,10 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
+    "validation": {
+      "$ref": "#/definitions/validation",
+      "default": {}
+    },
     "configuration": {
       "$ref": "#/definitions/configuration"
     },

@@ -1,10 +1,25 @@
+validation:
+  api:
+    name: "example-.+"
+    displayName: "Example-.+"
+    path: "[a-z-]+"
+  environment:
+    name: "(development|quality)"
+    displayName: "[A-Z].+"
+  operation:
+    displayName: "[A-Z][A-Za-z-]+"
+  product:
+    displayName: "[A-Z].+"
+  subscription:
+    displayName: "[A-Z].+"
+---
 configuration:
   serviceName: apim1
 environments:
   - name: development
 apis:
   - name: example-api
-    path: example-api
+    path: ${name}
     operations:
       - name: ping
         method: POST

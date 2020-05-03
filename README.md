@@ -185,6 +185,38 @@ apis:
         path: /data
 ```
 
+### Name validation
+
+Use the `validation` section to enforce consistent naming patterns.
+
+```yaml
+validation:
+  api:
+    name: "example-.+"
+    displayName: "Example-.+"
+    path: "[a-z-]+"
+  environment:
+    name: "(development|quality)"
+    displayName: "[A-Z].+"
+  operation:
+    displayName: "[A-Z][A-Za-z-]+"
+  product:
+    displayName: "[A-Z].+"
+  subscription:
+    displayName: "[A-Z].+"
+configuration:
+  serviceName: apim-service
+environments:
+  - name: development
+apis:
+  - name: example-api
+    path: example-api
+    operations:
+      - name: ping
+        method: POST
+        path: /ping
+```
+
 ## Related projects
 
 - https://github.com/Azure/azure-api-management-devops-resource-kit

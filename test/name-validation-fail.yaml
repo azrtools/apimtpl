@@ -1,0 +1,37 @@
+validation:
+  api:
+    name: "^x"
+    path: "^x"
+    displayName: "^x"
+  environment:
+    name: "^x"
+    displayName: "^x"
+  operation:
+    name: "^x"
+    path: "^x"
+    displayName: "^x"
+  product:
+    name: "^x"
+    displayName: "^x"
+  subscription:
+    name: "^x"
+    displayName: "^x"
+configuration:
+  serviceName: apim1
+environments:
+  - name: development
+products:
+  - name: example
+    apis:
+      - example-api
+subscriptions:
+  - name: example
+    scope:
+      product: example
+apis:
+  - name: example-api
+    path: ${name}
+    operations:
+      - name: get-data
+        method: GET
+        path: /data
