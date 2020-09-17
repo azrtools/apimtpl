@@ -10,31 +10,35 @@ const { generate } = require("../lib/apimtpl");
 async function main() {
   const parser = new ArgumentParser({
     prog: module.exports.name,
-    version: module.exports.version,
-    addHelp: true,
+    add_help: true,
     description: module.exports.description
   });
 
-  parser.addArgument(["-f", "--force"], {
-    action: "storeTrue",
-    help: "Overwrite existing output files."
+  parser.add_argument("-v", "--version", {
+    action: "version",
+    version: module.exports.version,
+    help: "show version number and exit"
   });
-  parser.addArgument(["--filenames"], {
-    action: "storeTrue",
-    help: "Print filenames when writing to stdout."
+  parser.add_argument("-f", "--force", {
+    action: "store_true",
+    help: "overwrite existing output files."
   });
-  parser.addArgument(["-o"], {
+  parser.add_argument("--filenames", {
+    action: "store_true",
+    help: "print filenames when writing to stdout."
+  });
+  parser.add_argument("-o", {
     metavar: "<output>",
-    defaultValue: "-",
-    help: "Output directory where to write files."
+    default: "-",
+    help: "output directory where to write files."
   });
-  parser.addArgument(["file"], {
+  parser.add_argument("file", {
     nargs: "+",
     metavar: "<file>",
-    help: "Input files"
+    help: "input files"
   });
 
-  const args = parser.parseArgs();
+  const args = parser.parse_args();
 
   const output = await generate(args.file);
 
