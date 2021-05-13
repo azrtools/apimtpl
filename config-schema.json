@@ -401,6 +401,7 @@
       "type": "array",
       "default": [],
       "items": {
+        "type": "object",
         "allOf": [{ "$ref": "#/definitions/subscription" }],
         "required": ["name", "scope"]
       }
