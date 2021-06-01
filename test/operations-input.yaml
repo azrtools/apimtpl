@@ -14,3 +14,11 @@ apis:
             description: Param 1
             defaultValue: B
             values: [A, B, C]
+      - name: post-data
+        method: POST
+        path: /data/{param1}
+        templateParameters:
+          - name: param1
+            description: Param 1
+            type: number
+            defaultValue: "1"

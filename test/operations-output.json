@@ -45,6 +45,35 @@
       },
       "resources": [],
       "apiVersion": "2019-01-01"
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "name": "apim1/example-api-development/post-data",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]"
+      ],
+      "properties": {
+        "displayName": "Post-Data",
+        "method": "POST",
+        "urlTemplate": "/data/{param1}",
+        "templateParameters": [
+          {
+            "name": "param1",
+            "description": "Param 1",
+            "type": "number",
+            "defaultValue": "1",
+            "values": [
+              "1"
+            ]
+          }
+        ],
+        "request": {
+          "queryParameters": []
+        },
+        "responses": []
+      },
+      "resources": [],
+      "apiVersion": "2019-01-01"
     }
   ]
 }

@@ -15,7 +15,7 @@
     },
     "path": {
       "type": "string",
-      "pattern": "^(\\$\\{[a-zA-Z0-9.]+\\}|[A-Za-z0-9./_-]+)+$"
+      "pattern": "^(\\$?\\{[a-zA-Z0-9.]+\\}|[A-Za-z0-9./_-]+)+$"
     },
     "value": {
       "oneOf": [{ "type": "string" }, { "$ref": "#/definitions/parameterRef" }]
@@ -215,6 +215,37 @@
               }
             }
           }
+        },
+        "templateParameters": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "$ref": "#/definitions/name"
+              },
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "default": ""
+              },
+              "defaultValue": {
+                "type": "string"
+              },
+              "values": {
+                "type": "array",
+                "default": [],
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -355,6 +386,9 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "validation": {
       "$ref": "#/definitions/validation",
       "default": {}
