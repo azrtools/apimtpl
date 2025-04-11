@@ -1,22 +1,27 @@
 #!/usr/bin/env node
 
-const { ArgumentParser } = require("argparse");
-const { writeJson } = require("fs-extra");
+import process from "process";
+import { readFile, writeFile } from "fs/promises";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
 
-require("pkginfo")(module);
+import { ArgumentParser } from "argparse";
 
-const { generate } = require("../lib/apimtpl");
+import { generate } from "../lib/apimtpl.js";
 
 async function main() {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  const pkg = JSON.parse(await readFile(resolve(root, "package.json"), "utf8"));
+
   const parser = new ArgumentParser({
-    prog: module.exports.name,
+    prog: pkg.name,
     add_help: true,
-    description: module.exports.description
+    description: pkg.description
   });
 
   parser.add_argument("-v", "--version", {
     action: "version",
-    version: module.exports.version,
+    version: pkg.version,
     help: "show version number and exit"
   });
   parser.add_argument("-f", "--force", {
@@ -53,14 +58,12 @@ async function main() {
   } else {
     const options = { spaces: 2, flag: args.force ? "w" : "wx" };
     for (const [name, obj] of Object.entries(output)) {
-      await writeJson(`${args.o}/${name}`, obj, options);
+      await writeFile(`${args.o}/${name}`, JSON.stringify(obj), options);
     }
   }
 }
 
-if (require.main === module) {
-  main().catch(err => {
-    process.exitCode = 1;
-    console.error(err);
-  });
-}
+main().catch(err => {
+  process.exitCode = 1;
+  console.error(err);
+});

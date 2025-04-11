@@ -1,8 +1,10 @@
-const { readdirSync, readJson, readFile } = require("fs-extra");
-const { describe, it } = require("mocha");
-const { expect } = require("chai");
+import { readdirSync } from "fs";
+import { readFile } from "fs/promises";
 
-const { generate } = require("../lib/apimtpl");
+import { describe, it } from "mocha";
+import { expect } from "chai";
+
+import { generate } from "../lib/apimtpl.js";
 
 const INPUT_SUFFIX = "-input.yaml";
 const FAIL_SUFFIX = "-fail.yaml";
@@ -18,7 +20,9 @@ describe("apimtpl", () => {
           Object.keys(result).length === 1
             ? JSON.stringify(Object.entries(result)[0][1], null, 2)
             : JSON.stringify(result, null, 2);
-        const expected = await readJson(`test/${base}-output.json`);
+        const expected = JSON.parse(
+          await readFile(`test/${base}-output.json`, "utf8")
+        );
         return expect(output).equals(JSON.stringify(expected, null, 2));
       });
     } else if (file.endsWith(FAIL_SUFFIX)) {
