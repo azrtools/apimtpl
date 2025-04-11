@@ -15,6 +15,7 @@
         "protocols": ["https"],
         "isCurrent": true
       },
+      "dependsOn": [],
       "resources": [
         {
           "type": "policies",

@@ -12,18 +12,15 @@
         "apiRevision": "1",
         "subscriptionRequired": true,
         "path": "example-api",
-        "protocols": [
-          "https"
-        ],
+        "protocols": ["https"],
         "isCurrent": true
       },
+      "dependsOn": [],
       "resources": [
         {
           "type": "policies",
           "name": "policy",
-          "dependsOn": [
-            "example-api-development"
-          ],
+          "dependsOn": ["example-api-development"],
           "properties": {
             "value": "<policies><inbound><base />\n<set-backend-service base-url=\"https://dev.example.com\" />\n<authentication-basic username=\"{{ExampleApi-Development-Default-Username}}\" password=\"{{ExampleApi-Development-Default-Password}}\" />\n</inbound><backend><base /></backend><outbound><base /></outbound><on-error><base /></on-error></policies>",
             "format": "xml"
@@ -60,18 +57,15 @@
         "apiRevision": "1",
         "subscriptionRequired": true,
         "path": "example-api",
-        "protocols": [
-          "https"
-        ],
+        "protocols": ["https"],
         "isCurrent": true
       },
+      "dependsOn": [],
       "resources": [
         {
           "type": "policies",
           "name": "policy",
-          "dependsOn": [
-            "example-api-quality"
-          ],
+          "dependsOn": ["example-api-quality"],
           "properties": {
             "value": "<policies><inbound><base />\n<set-backend-service base-url=\"https://example.com\" />\n<authentication-basic username=\"{{ExampleApi-Quality-Default-Username}}\" password=\"{{ExampleApi-Quality-Default-Password}}\" />\n</inbound><backend><base /></backend><outbound><base /></outbound><on-error><base /></on-error></policies>",
             "format": "xml"

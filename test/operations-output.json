@@ -15,6 +15,7 @@
         "protocols": ["https"],
         "isCurrent": true
       },
+      "dependsOn": [],
       "resources": [],
       "apiVersion": "2019-01-01"
     },
@@ -50,7 +51,8 @@
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "name": "apim1/example-api-development/post-data",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', 'apim1', 'example-api-development', 'get-data')]"
       ],
       "properties": {
         "displayName": "Post-Data",
@@ -62,9 +64,7 @@
             "description": "Param 1",
             "type": "number",
             "defaultValue": "1",
-            "values": [
-              "1"
-            ]
+            "values": ["1"]
           }
         ],
         "request": {
