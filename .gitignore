@@ -1,5 +1,6 @@
 .*
 !.dockerignore
 !.gitignore
+!.github/
 
 node_modules/
