@@ -1,7 +1,5 @@
 configuration:
   serviceName: apim1
-environments:
-  - name: development
 variables:
   - name: prefix
     value: ""
@@ -16,6 +14,9 @@ apis:
       - name: get-data
         method: GET
         path: /data
+---
+environments:
+  - name: development
 ---
 environments:
   - name: development

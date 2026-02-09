@@ -54,7 +54,7 @@
           "name": "example-api-development",
           "dependsOn": [
             "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]",
-            "example-development"
+            "[resourceId('Microsoft.ApiManagement/service/products', 'apim1', 'example-development')]"
           ],
           "apiVersion": "2019-01-01",
           "properties": {}

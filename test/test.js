@@ -13,7 +13,7 @@ describe("apimtpl", () => {
   const files = readdirSync("test");
   for (const file of files) {
     if (file.endsWith(INPUT_SUFFIX)) {
-      const base = file.substr(0, file.length - INPUT_SUFFIX.length);
+      const base = file.slice(0, file.length - INPUT_SUFFIX.length);
       it(`should generate the expected output (${base})`, async () => {
         const result = await generate([`test/${file}`]);
         const output =
@@ -26,7 +26,7 @@ describe("apimtpl", () => {
         return expect(output).equals(JSON.stringify(expected, null, 2));
       });
     } else if (file.endsWith(FAIL_SUFFIX)) {
-      const base = file.substr(0, file.length - FAIL_SUFFIX.length);
+      const base = file.slice(0, file.length - FAIL_SUFFIX.length);
       it(`should fail with the expected output (${base})`, async () => {
         let error = null;
         try {

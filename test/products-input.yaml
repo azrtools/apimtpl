@@ -1,0 +1,23 @@
+configuration:
+  serviceName: apim1
+apis:
+  - name: example-api
+    path: ${name}
+    operations:
+      - name: get-data
+        path: /data
+        method: POST
+---
+environments:
+  - name: development
+---
+products:
+  - name: example-product
+    displayName: Example 1
+    apis:
+      - example-api
+subscriptions:
+  - name: example-subscription
+    displayName: Example 1
+    scope:
+      product: example-product

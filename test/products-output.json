@@ -1,0 +1,82 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {},
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.ApiManagement/service/apis",
+      "name": "apim1/example-api-development",
+      "properties": {
+        "displayName": "Example-Api - Development",
+        "apiRevision": "1",
+        "subscriptionRequired": true,
+        "path": "example-api",
+        "protocols": [
+          "https"
+        ],
+        "isCurrent": true
+      },
+      "dependsOn": [],
+      "resources": [],
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "name": "apim1/example-api-development/get-data",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]"
+      ],
+      "properties": {
+        "displayName": "Get-Data",
+        "method": "POST",
+        "urlTemplate": "/data",
+        "templateParameters": [],
+        "request": {
+          "queryParameters": []
+        },
+        "responses": []
+      },
+      "resources": [],
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/products",
+      "name": "apim1/example-product-development",
+      "properties": {
+        "displayName": "Example 1 - Development",
+        "description": "Example 1 - Development",
+        "subscriptionRequired": true,
+        "approvalRequired": false,
+        "state": "published"
+      },
+      "resources": [
+        {
+          "type": "apis",
+          "name": "example-api-development",
+          "dependsOn": [
+            "[resourceId('Microsoft.ApiManagement/service/apis', 'apim1', 'example-api-development')]",
+            "[resourceId('Microsoft.ApiManagement/service/products', 'apim1', 'example-product-development')]"
+          ],
+          "apiVersion": "2019-01-01",
+          "properties": {}
+        }
+      ],
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/subscriptions",
+      "name": "apim1/example-subscription-development",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/products', 'apim1', 'example-product-development')]"
+      ],
+      "properties": {
+        "scope": "[resourceId('Microsoft.ApiManagement/service/products', 'apim1', 'example-product-development')]",
+        "displayName": "Example 1 - Development",
+        "state": "active",
+        "allowTracing": true
+      },
+      "apiVersion": "2019-01-01"
+    }
+  ]
+}
